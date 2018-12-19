@@ -5,7 +5,7 @@ class SpinalDynamicObjectForgeExtention {
 	constructor(viewer, options) {
 		window.Autodesk.Viewing.Extension.call(this, viewer, options);
 		this.viewer = viewer;
-		this.THREE = new THREEObject(window);
+		this.THREE = new THREEObject();
 		//this.MySet = new Set();
 	}
 	load(){ 

@@ -7,27 +7,28 @@ import THREEObject from '../THREE';
 class ZoomBtn extends SpinalContextApp {
   constructor() {
     super("", "", {
-      icon: "",
+      icon: " ",
       icon_type: "",
       backgroundColor: "",
       fontColor: ""
     });
-    this.THREE = new THREEObject();
+    //this.THREE = new THREEObject();
   }
   isShown(option) {
-      this.currentNode = option.selectedNode;
+  
+      // this.currentNode = option.selectedNode;
 
-      this.THREE.DeleteObject(this.currentNode);
-      this.currentNode.color.set(this.color);
-      //this.THREE.DeleteObject();
-      this.THREE.NewObject(this.currentNode);
+      // this.THREE.DeleteObject(this.currentNode);
+      // this.currentNode.color.set(this.color);
+      // //this.THREE.DeleteObject();
+      // this.THREE.NewObject(this.currentNode);
 
-      console.log("----------------------------------------")
-      console.log(this.currentNode)
-      console.log(this.color)
-      let realNode = SpinalGraphService.getRealNode(this.currentNode.id.get());
-      realNode.info.color.set(this.currentNode.color.get());
-      console.log(this.currentNode.color.get());
+      // console.log("----------------------------------------")
+      // console.log(this.currentNode)
+      // console.log(this.color)
+      // let realNode = SpinalGraphService.getRealNode(this.currentNode.id.get());
+      // realNode.info.color.set(this.currentNode.color.get());
+      // console.log(this.currentNode.color.get());
 
 
 

@@ -38,6 +38,7 @@ with this file. If not, see
 
 <script>
 import { SpinalGraphService, SPINAL_RELATION_TYPE } from 'spinal-env-viewer-graph-service';
+import THREEObject from '../THREE';
 export default {
   name: "my_compo",
   data() {
@@ -54,6 +55,7 @@ export default {
   },
   methods: {
     opened(option) {
+      this.THREE = new THREEObject();
       this.currentNode = option.selectedNode;
       this.contextId = option.context.id.get();
       this.viewer = window.spinal.ForgeViewer.viewer;
@@ -67,16 +69,22 @@ export default {
         this.y = Math.round(clicked.intersectPoint.y);
         this.z = Math.round(clicked.intersectPoint.z);
         this.createNewObject();
+        window.spinal.ForgeViewer.viewer.impl.invalidate(true);
       }
     },
     createNewObject() {
+      console.log("createnewobject");
       document.removeEventListener("mousedown", this.positionObject, true);
       let id = SpinalGraphService.createNode({name: this.input, type: "dynamicObject", x: this.x, y: this.y, z: this.z, color: "blue"
-        , radius: 1, widthSegments: 30, heightSegments: 30});
+        , radius: 1, widthSegments: 30, heightSegments: 30, form: "sphere"});
       SpinalGraphService.addChildInContext(this.currentNode.id.get(), id, this.contextId, "hasDynamicObject", SPINAL_RELATION_TYPE);
-      //document.removeEventListener("keyup", this.createNewObject);
       let el = document.getElementsByClassName("dockingPanelClose");
       el[4].click();
+    //  let obj = SpinalGraphService.getRealNode(id);
+      //console.log(obj);
+      console.log(id);
+      let obj = SpinalGraphService.getNode(id);
+      this.THREE.NewObject(obj);
       this.hidden = true;
       this.input = "";
     },
