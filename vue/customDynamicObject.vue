@@ -176,7 +176,7 @@ export default {
     },
     changeName(option, viewer) {
       //let name = this.currentNode.name.get();
-      //this.currentNode.name.set(this.name);
+      this.currentNode.name.set(this.name);
       //this.THREE.DeleteObject();
       //this.THREE.CustomObject(this.currentNode, name);
 
