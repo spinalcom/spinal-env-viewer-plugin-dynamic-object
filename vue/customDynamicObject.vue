@@ -66,7 +66,7 @@ with this file. If not, see
               <select v-model="formSelected" style="margin-right:74px; margin-left:7px;width: 107px;">
                  <option v-for="option in form" v-bind:value="option">
                  {{ option }}
-                </option>
+                </option>f
               </select>
 
                       <!-- <input v-model="color" style="margin-left:6px"> -->
@@ -79,7 +79,7 @@ with this file. If not, see
             <br>
             <p>move element with click 
             <md-button class="md-button-accept"
-                 v-on:click="getNewPosition">Change1</md-button>
+                 v-on:click="getNewPosition">Change</md-button>
             </p>
     </div>
     <hr/>
