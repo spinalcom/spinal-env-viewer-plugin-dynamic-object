@@ -72,7 +72,6 @@ export default {
   font-size: 120%;
 }
 .md-button-accept {
-  background-color: red;
   margin: auto;
   padding: auto;
 }
