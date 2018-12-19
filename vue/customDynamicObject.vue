@@ -215,7 +215,8 @@ export default {
     },
     changePosition: function(e) {
       let clicked = window.spinal.ForgeViewer.viewer.clientToWorld(e.layerX, e.layerY, false);
-
+      let realNode = SpinalGraphService.getRealNode(this.currentNode.id.get());
+      
       if (clicked) {
         this.x = Math.round(clicked.intersectPoint.x);
         this.y = Math.round(clicked.intersectPoint.y);
@@ -223,6 +224,9 @@ export default {
         this.currentNode.x.set(this.x);
         this.currentNode.y.set(this.y);
         this.currentNode.z.set(this.z);
+        realNode.info.x.set(this.x);
+        realNode.info.z.set(this.z);
+        realNode.info.y.set(this.y);
       }
       document.removeEventListener("mousedown", this.changePosition, true);
       this.THREE.CustomObject(this.currentNode);
