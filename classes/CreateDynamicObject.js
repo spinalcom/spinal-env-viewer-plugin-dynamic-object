@@ -15,7 +15,7 @@ const {
 class CreateDynamicObjectBtn extends SpinalContextApp {
   constructor() {
     super("Create DynamicObject", "This button create a DynamicObject", {
-      icon: "account_balance",
+      icon: "add_location",
       icon_type: "in",
       backgroundColor: "#FF0000",
       fontColor: "#FFFFFF"
