@@ -81,18 +81,18 @@ export default {
   data() {
     return {
       xValue: {
-        min: -1000,
-        max: 1000,
+        min: -300,
+        max: 300,
         tooltip: false
       },
       yValue: {
-        min: -1000,
-        max: 1000,
+        min: -300,
+        max: 300,
         tooltip: false
       },
       zValue: {
-        min: -1000,
-        max: 1000,
+        min: -300,
+        max: 300,
         tooltip: false
       },
       RadiusValue: {
