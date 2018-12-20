@@ -35,6 +35,7 @@ with this file. If not, see
 </template>
 
 <script>
+import THREEObject from '../THREE';
 import { SpinalGraphService } from 'spinal-env-viewer-graph-service';
 export default {
   name: "my_compo",
@@ -48,7 +49,9 @@ export default {
       this.currentNode = option;
     },
     deleteMethod() {
+      let THREE = new THREEObject();
       SpinalGraphService.removeFromGraph(this.currentNode.selectedNode.id.get())
+      THREE.DeleteObject(this.currentNode.selectedNode.name.get())
       let el = document.getElementsByClassName("dockingPanelClose");
       el[4].click();
     },
