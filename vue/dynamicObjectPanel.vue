@@ -73,23 +73,18 @@ export default {
       }
     },
     createNewObject() {
-      console.log("createnewobject");
       document.removeEventListener("mousedown", this.positionObject, true);
       let id = SpinalGraphService.createNode({name: this.input, type: "dynamicObject", x: this.x, y: this.y, z: this.z, color: "blue"
         , radius: 1, widthSegments: 30, heightSegments: 30, form: "sphere"});
       SpinalGraphService.addChildInContext(this.currentNode.id.get(), id, this.contextId, "hasDynamicObject", SPINAL_RELATION_TYPE);
       let el = document.getElementsByClassName("dockingPanelClose");
       el[4].click();
-    //  let obj = SpinalGraphService.getRealNode(id);
-      //console.log(obj);
-      console.log(id);
       let obj = SpinalGraphService.getNode(id);
       this.THREE.NewObject(obj);
       this.hidden = true;
       this.input = "";
     },
     createMethod() {
-      //document.addEventListener("keyup", this.createNewObject);
       this.hidden = false;
       document.addEventListener("mousedown", this.positionObject, true);
     }
