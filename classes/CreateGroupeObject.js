@@ -16,7 +16,7 @@ const {
 class CreateGroupDynamicBtm extends SpinalContextApp {
   constructor() {
     super("Create Groupe Object", "This button create a DynamicObject group", {
-      icon: "business",
+      icon: "playlist_add",
       icon_type: "in",
       backgroundColor: "#FF0000",
       fontColor: "#FFFFFF"
