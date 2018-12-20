@@ -24,8 +24,6 @@ class CustomDynamicObjectBtn extends SpinalContextApp {
 
   isShown(option) {
     let id = option.selectedNode.id.get();
-    //console.log("ici");
-    //console.log(SpinalGraphService.getInfo(id).get());
     if (SpinalGraphService.getInfo(id).type.get() === "dynamicObject") {
       return Promise.resolve(true);
     } else {
@@ -51,7 +49,6 @@ const extentionCustomObjectPanel = SpinalForgeExtention.createExtention({
     left: "405px",
      height: "259px",
      width: "16px"
-    //'min-height': '16vh'
   },
   onload: () => {},
   onUnLoad: () => {}
