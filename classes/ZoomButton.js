@@ -7,7 +7,7 @@ import THREEObject from '../THREE';
 class ZoomBtn extends SpinalContextApp {
   constructor() {
     super("dynamicObject Zoom", "This button zoom on a DynamicObject", {
-      icon: "find_in_page",
+      icon: "gps_fixed",
       icon_type: "in",
       backgroundColor: "#FF0000",
       fontColor: "#FFFFFF"
