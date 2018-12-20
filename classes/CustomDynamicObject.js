@@ -15,7 +15,7 @@ const {
 class CustomDynamicObjectBtn extends SpinalContextApp {
   constructor() {
     super("Custom DynamicObject", "This button custom a DynamicObject", {
-      icon: "3d_rotation",
+      icon: "settings",
       icon_type: "in",
       backgroundColor: "#FF0000",
       fontColor: "#FFFFFF"
