@@ -44,18 +44,15 @@ export default {
     };
   },
   methods: {
-    opened(option, viewer) {
+    opened(option) {
       this.currentNode = option;
     },
-    deleteMethod(option, viewer) {
-      //console.log(this.currentNode);
+    deleteMethod() {
       SpinalGraphService.removeFromGraph(this.currentNode.selectedNode.id.get())
-      //this.currentNode.selectedNode.removeFromGraph();
       let el = document.getElementsByClassName("dockingPanelClose");
       el[4].click();
-      //  removeChild( nodeId, childId, relationName, relationType, stop = false )
     },
-    cancelMethod(option, viewer) {
+    cancelMethod() {
       let el = document.getElementsByClassName("dockingPanelClose");
       el[4].click();
     }
@@ -63,7 +60,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .delete-panel-container * {
   box-sizing: border-box;
 }
