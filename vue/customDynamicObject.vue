@@ -47,13 +47,13 @@ with this file. If not, see
             </div> 
               <input type="number" v-model="radius" class="slideWithInput" >
 
-            <p class="titleInput">Change Form :</p>
+         <!--   <p class="titleInput">Change Form :</p>
             <select class="selectedInput" style="margin-left: 150px;" v-model="formSelected">
                 <option v-for="option in form" v-bind:value="option">
                  {{ option }}
                 </option>
             </select>
-
+                      -->
             <p class="titleInput">Move element with click </p>
               <md-button class="md-button-accept selectedInput"
                 style="margin-left: 210px;" v-on:click="getNewPosition">Change</md-button>
