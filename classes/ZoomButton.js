@@ -6,37 +6,23 @@ import THREEObject from '../THREE';
 
 class ZoomBtn extends SpinalContextApp {
   constructor() {
-    super("", "", {
-      icon: " ",
-      icon_type: "",
-      backgroundColor: "",
-      fontColor: ""
+    super("dynamicObject Zoom", "This button zoom on a DynamicObject", {
+      icon: "find_in_page",
+      icon_type: "in",
+      backgroundColor: "#FF0000",
+      fontColor: "#FFFFFF"
     });
-    //this.THREE = new THREEObject();
   }
   isShown(option) {
-  
-      // this.currentNode = option.selectedNode;
-
-      // this.THREE.DeleteObject(this.currentNode);
-      // this.currentNode.color.set(this.color);
-      // //this.THREE.DeleteObject();
-      // this.THREE.NewObject(this.currentNode);
-
-      // console.log("----------------------------------------")
-      // console.log(this.currentNode)
-      // console.log(this.color)
-      // let realNode = SpinalGraphService.getRealNode(this.currentNode.id.get());
-      // realNode.info.color.set(this.currentNode.color.get());
-      // console.log(this.currentNode.color.get());
-
-
-
-
-   if (option.selectedNode.type.get() === "dynamicObject") {
-      console.log("ok");
-   }
-   return Promise.resolve(1);
+    if (option.selectedNode.type.get() === "dynamicObject") {
+      return Promise.resolve(1);
+    } else {
+      return Promise.resolve(-1);
+    }
+  }
+  action(option) {
+      this.THREE = new THREEObject();
+      this.THREE.ZoomObject(option.selectedNode);
   }
 }
 
