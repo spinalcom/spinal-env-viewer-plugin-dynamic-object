@@ -145,31 +145,40 @@ export default class THREEObjectsManager {
 		}
 	}
 	ZoomObject(obj) {
-		if (this.oldzoom) {
-			console.log(this.oldzoom.obj,this.CreatedObject[this.oldzoom.obj]);
-			this.CreatedObject[this.oldzoom.obj].material = this.colorRef[this.oldzoom.color];
-		}
+		console.log(this.oldzoom, obj.name.get());
+		if (this.oldzoom === obj.name.get()) {
+			console.log(obj.color.get());
+			self.CreatedObject[obj.name.get()].material = self.colorRef[obj.color.get()];
+			self.CreatedObject[obj.name.get()].updateMatrix();
+			self.CreatedObject[obj.name.get()].updateMatrixWorld();
+			self._viewer.impl.invalidate(true);
+		} else {
+			if (this.oldzoom) {
+				console.log(this.oldzoom.obj,this.CreatedObject[this.oldzoom.obj]);
+				this.CreatedObject[this.oldzoom.obj].material = this.colorRef[this.oldzoom.color];
+			}
 
-		let name = obj.name.get();
-		for (var i in this.CreatedObject) {
-			if (i === name) {
-				console.log(this.CreatedObject[obj.name.get()]);
+			let name = obj.name.get();
+			for (var i in this.CreatedObject) {
+				if (i === name) {
+					console.log(this.CreatedObject[obj.name.get()]);
 
-				this.oldzoom = {};
-				this.oldzoom.obj = obj.name.get();
-				this.oldzoom.color = obj.color.get();
+					this.oldzoom = {};
+					this.oldzoom.obj = obj.name.get();
+					this.oldzoom.color = obj.color.get();
 
-				this.CreatedObject[obj.name.get()].material = this.colorRef['yellow'];
-				this.CreatedObject[obj.name.get()].updateMatrix();
-				this.CreatedObject[obj.name.get()].updateMatrixWorld();
-				this._viewer.impl.invalidate(true);
-				let self = this;
-				setTimeout(function() {
-					self.CreatedObject[obj.name.get()].material = self.colorRef[obj.color.get()];
-					self.CreatedObject[obj.name.get()].updateMatrix();
-					self.CreatedObject[obj.name.get()].updateMatrixWorld();
-					self._viewer.impl.invalidate(true);
-				}, 8000);
+					this.CreatedObject[obj.name.get()].material = this.colorRef['yellow'];
+					this.CreatedObject[obj.name.get()].updateMatrix();
+					this.CreatedObject[obj.name.get()].updateMatrixWorld();
+					this._viewer.impl.invalidate(true);
+					let self = this;
+					setTimeout(function() {
+						self.CreatedObject[obj.name.get()].material = self.colorRef[obj.color.get()];
+						self.CreatedObject[obj.name.get()].updateMatrix();
+						self.CreatedObject[obj.name.get()].updateMatrixWorld();
+						self._viewer.impl.invalidate(true);
+					}, 8000);
+				}
 			}
 		}
 	}
