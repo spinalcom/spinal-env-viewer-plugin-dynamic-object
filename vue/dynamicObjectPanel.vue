@@ -23,6 +23,12 @@ with this file. If not, see
     <p class="rename-element"> Name for the new Object :</p>
     <div class="rename-element">
       <input v-model="input">
+    <p class="titleInput">Change Form :</p>
+    <select class="selectedInput" style="margin-left: 150px;" v-model="formSelected">
+      <option v-for="option in form" v-bind:value="option">
+       {{ option }}
+      </option>
+    </select>
     </div>
     <div class="md-layout">
       <md-button class="md-layout-item"
@@ -33,7 +39,7 @@ with this file. If not, see
   </div>
   <div class="click-message" v-else>
     <p>  Click where you want for your new object</p>
-  </div>  
+  </div>
 </template>
 
 <script>
@@ -47,10 +53,15 @@ export default {
       input: "",
       contextId: "",
       viewer: '',
+      formSelected: "sphere",
       x: 0,
       y: 0,
       z: 0,
-      hidden: true
+      hidden: true,
+      form: [
+       "sphere",
+       "square"
+      ]
     };
   },
   methods: {
@@ -74,15 +85,31 @@ export default {
     },
     createNewObject() {
       document.removeEventListener("mousedown", this.positionObject, true);
-      let id = SpinalGraphService.createNode({name: this.input, type: "dynamicObject", x: this.x, y: this.y, z: this.z, color: "blue"
-        , radius: 1, widthSegments: 30, heightSegments: 30, form: "sphere"});
-      SpinalGraphService.addChildInContext(this.currentNode.id.get(), id, this.contextId, "hasDynamicObject", SPINAL_RELATION_TYPE);
-      let el = document.getElementsByClassName("dockingPanelClose");
-      el[4].click();
-      let obj = SpinalGraphService.getNode(id);
-      this.THREE.NewObject(obj);
-      this.hidden = true;
-      this.input = "";
+      let id;
+      console.log(this.formSelected);
+      if (this.formSelected === "sphere") {
+        console.log("SPHERE DETECTED");
+        id = SpinalGraphService.createNode({name: this.input, type: "dynamicObject", x: this.x, y: this.y, z: this.z, color: "#0000FF"
+          , radius: 1, widthSegments: 30, heightSegments: 30, form: "sphere"});
+        SpinalGraphService.addChildInContext(this.currentNode.id.get(), id, this.contextId, "hasDynamicObject", SPINAL_RELATION_TYPE);
+        let el = document.getElementsByClassName("dockingPanelClose");
+        el[4].click();
+        let obj = SpinalGraphService.getNode(id);
+        this.THREE.NewObject(obj);
+        this.hidden = true;
+        this.input = "";
+      } else if (this.formSelected === "square") {
+        console.log("SQUARE DETECTED");
+        id = SpinalGraphService.createNode({name: this.input, type: "dynamicObject", x: this.x, y: this.y, z: this.z, color: "#0000FF"
+          , depth: 2.5, width: 2.5, height: 2.5, form: this.formSelected});
+        SpinalGraphService.addChildInContext(this.currentNode.id.get(), id, this.contextId, "hasDynamicObject", SPINAL_RELATION_TYPE);
+        let el = document.getElementsByClassName("dockingPanelClose");
+        el[4].click();
+        let obj = SpinalGraphService.getNode(id);
+        this.THREE.NewObject(obj);
+        this.hidden = true;
+        this.input = "";
+      }
     },
     createMethod() {
       this.hidden = false;
@@ -92,7 +119,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .panel-container * {
   box-sizing: border-box;
 }
@@ -105,5 +132,16 @@ export default {
 .click-message {
   text-align: center;
   padding-top: 20px;
+}
+.selectedInput {
+  margin-top:-30px;
+  width:100px;
+  position: absolute;
+}
+.titleInput {
+  margin-top: 3px;
+  margin: auto;
+  margin-left: 40px;
+  height: 30px;
 }
 </style>
