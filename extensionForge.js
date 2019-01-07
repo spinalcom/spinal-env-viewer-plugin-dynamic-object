@@ -96,11 +96,13 @@ async function init() {
 		}
 	}
 	//console.log(_ObjectContext);
+	if (_ObjectContext != undefined ) {
 	let _ObjectGroup = await SpinalGraphService.getChildren(_ObjectContext.id.get(), []);
 	this.context = SpinalGraphService.getRealNode(_ObjectContext.id.get());
 	this.contextBinded = this.context.bind(() => this.cb.call(this) );
 	//self.unbind = SpinalGraphService.bindNode(self.context.id.get(), self, self.cb)
 	fillMySet.call(this);
+	}
 
 }
 
