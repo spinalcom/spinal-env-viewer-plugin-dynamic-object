@@ -6,14 +6,10 @@ class SpinalDynamicObjectForgeExtention {
 		window.Autodesk.Viewing.Extension.call(this, viewer, options);
 		this.viewer = viewer;
 		this.THREE = new THREEObject();
-		//this.MySet = new Set();
 	}
 	load(){ 
 		init.call(this);
-		//fillMySet.call(this);	
-		// this.context = getcontext
 		return true;
-		// this.contextbinded = this.context.bind(this.cb.bind(this))
 	}
 
     /**
@@ -24,10 +20,7 @@ class SpinalDynamicObjectForgeExtention {
 		 this.context.unbind(contextBinded)
     }
     cb() {
-    	console.log("-------------cb---------------");
     	handleTHREEObject.call(this);
-		// this.context  ...  json
-		// difference old et new return json de difference
     }
 }
 
@@ -75,35 +68,29 @@ async function handleTHREEObject() {
 		const it = deleteObject.values();
 		const first = it.next();
 		const value = first.value;
-		//console.log("Object deleted = ", value);
 		this.THREE.DeleteObject(value);
 	}
-	//console.log("newobj = ", newObject, "deleted = ", deleteObject);
 }
 
 async function init() {
 	let _graph = SpinalGraphService.getGraph()
 	let _ObjectContext;
 	let _context = await SpinalGraphService.getChildren(_graph.getId().get(), [])
-	console.log("------> _context ");
-	console.log(_context);
 	let test = await SpinalGraphService.getChildren(_context[0].id.get(), []);
-	console.log(test);
 	for (var i in _context) {
 		if (_context[i].type.get() === "DynamicObject") {
 			console.log("in if === dynamic object", _context[i], i);
 			_ObjectContext = _context[i];
 		}
 	}
-	//console.log(_ObjectContext);
-	if (_ObjectContext != undefined ) {
-	let _ObjectGroup = await SpinalGraphService.getChildren(_ObjectContext.id.get(), []);
-	this.context = SpinalGraphService.getRealNode(_ObjectContext.id.get());
-	this.contextBinded = this.context.bind(() => this.cb.call(this) );
-	//self.unbind = SpinalGraphService.bindNode(self.context.id.get(), self, self.cb)
-	fillMySet.call(this);
-	}
 
+	if (_ObjectContext !== undefined ) {
+		let _ObjectGroup = await SpinalGraphService.getChildren(_ObjectContext.id.get(), []);
+		this.context = SpinalGraphService.getRealNode(_ObjectContext.id.get());
+		this.contextBinded = this.context.bind(() => this.cb.call(this) );
+		//self.unbind = SpinalGraphService.bindNode(self.context.id.get(), self, self.cb)
+		fillMySet.call(this);
+	}
 }
 
 function difference(setA, setB) {
