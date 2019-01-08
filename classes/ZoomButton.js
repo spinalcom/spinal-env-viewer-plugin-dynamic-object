@@ -1,7 +1,6 @@
 const {
   SpinalContextApp
 } = require("spinal-env-viewer-context-menu-service");
-import { SpinalGraphService } from 'spinal-env-viewer-graph-service';
 import THREEObject from '../THREE';
 
 class ZoomBtn extends SpinalContextApp {

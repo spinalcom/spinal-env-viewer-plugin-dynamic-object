@@ -6,6 +6,7 @@ import { CreateGroupDynamicBtm, extentionCreateGroupPanel } from './classes/Crea
 import { CustomDynamicObjectBtn, extentionCustomObjectPanel } from './classes/CustomDynamicObject';
 import './extensionForge';
 
+
 const HeaderBarName = "GraphManagerTopBar";
 const sidebarName = "GraphManagerSideBar";
 
@@ -22,20 +23,6 @@ SpinalForgeExtention.registerExtention("CreateGroupPanel", extentionCreateGroupP
 SpinalForgeExtention.registerExtention("CreateObjectPanel", extentionCreateObjectPanel);
 SpinalForgeExtention.registerExtention("CustomObjectPanel", extentionCustomObjectPanel);
 
-
-/*window.Autodesk.Viewing.theExtensionManager.registerExtension(
-        "SpinalDynamicObjectForgeExtention",
-        SpinalDynamicObjectForgeExtention
-      );
-*/ // register to viewer
-//window.spinal.ForgeExtentionManager.addExtention("SpinalDynamicObjectForgeExtention");
-
-
-			/* 			Delete Button  				*/
-import { SpinalContextDelete, extentionDeletePanel } from './removeButton.js';
-
-spinalContextMenuService.registerApp("GraphManagerSideBar", new SpinalContextDelete());
-SpinalForgeExtention.registerExtention("deletePanel", extentionDeletePanel);
 
 
 spinalContextMenuService.registerApp(sidebarName, new ZoomBtn());

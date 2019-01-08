@@ -361,7 +361,6 @@ export default {
 };
 </script>
 
-
 <style scoped>
 .delete-panel-container * {
   box-sizing: border-box;

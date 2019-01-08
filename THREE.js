@@ -51,7 +51,7 @@ export default class THREEObjectsManager {
 			return self;
 		}
     }
-   NewObject(obj) {
+    NewObject(obj) {
 		if (obj.form.get() === "sphere") {
 			this.CreateSphere(obj);
 		} else if (obj.form.get() === "square") {
