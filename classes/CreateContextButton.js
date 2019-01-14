@@ -5,7 +5,7 @@ import { SpinalGraphService } from 'spinal-env-viewer-graph-service';
 
 class CreateDynamicContextBtn extends SpinalContextApp {
   constructor() {
-    super("Create DOC", "This button create a DynamicObject context", {
+    super("Create Dynamic Object Context", "This button create a DynamicObject context", {
       icon: "business",
       icon_type: "in",
       backgroundColor: "#FF0000",
