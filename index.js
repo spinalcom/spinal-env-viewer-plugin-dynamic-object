@@ -5,7 +5,7 @@ import { CreateDynamicObjectBtn, extentionCreateObjectPanel } from './classes/Cr
 import { CreateGroupDynamicBtm, extentionCreateGroupPanel } from './classes/CreateGroupeObject';
 import { CustomDynamicObjectBtn, extentionCustomObjectPanel } from './classes/CustomDynamicObject';
 import './extensionForge';
-
+import './extensionCustomTool';
 
 const HeaderBarName = "GraphManagerTopBar";
 const sidebarName = "GraphManagerSideBar";

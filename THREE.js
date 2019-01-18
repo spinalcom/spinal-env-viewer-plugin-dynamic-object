@@ -86,7 +86,7 @@ export default class THREEObjectsManager {
 
 		//update the viewer
 		//this._viewer.impl.invalidate(true);
-		this.CreatedObject[obj.name.get()] = obj["threeObj"];
+		this.CreatedObject[obj.name.get()] = { mesh: obj["threeObj"], id: obj.id.get() };
 	}
 	CreateSquare(obj) {
 		//const newColor = this.colorRef[`${obj.color.get()}`]
@@ -114,7 +114,7 @@ export default class THREEObjectsManager {
 		this._viewer.fitToView([], sphere_maxpt);
 
 		//update the viewer
-		this.CreatedObject[obj.name.get()] = obj["threeObj"];
+		this.CreatedObject[obj.name.get()] = { mesh: obj["threeObj"], id: obj.id.get() };
 	}
 	CreateDynamicMesh(obj) {
 		if (obj.form.get() === "sphere") {
@@ -126,7 +126,7 @@ export default class THREEObjectsManager {
 	DeleteObject(name) {
 		for (var i in this.CreatedObject) {
 			if (i === name) {
-				this._viewer.impl.scene.remove(this.CreatedObject[i]);
+				this._viewer.impl.scene.remove(this.CreatedObject[i].mesh);
 				this._viewer.impl.invalidate(true);
 			}
 		}
@@ -136,9 +136,9 @@ export default class THREEObjectsManager {
 
 		for (var i in this.CreatedObject) {
 			if (i === name) {
-				this.CreatedObject[obj.name.get()].position.set(obj.x.get(), obj.y.get(), obj.z.get());
-				this.CreatedObject[obj.name.get()].updateMatrix();
-				this.CreatedObject[obj.name.get()].updateMatrixWorld();
+				this.CreatedObject[obj.name.get()].mesh.position.set(obj.x.get(), obj.y.get(), obj.z.get());
+				this.CreatedObject[obj.name.get()].mesh.updateMatrix();
+				this.CreatedObject[obj.name.get()].mesh.updateMatrixWorld();
 				this._viewer.impl.invalidate(true);
 			}
 		}
@@ -154,10 +154,9 @@ export default class THREEObjectsManager {
 
 		for (var i in this.CreatedObject) {
 			if (i === name) {
-				console.log(this.CreatedObject[obj.name.get()]);
-				this.CreatedObject[obj.name.get()].material = colorReference;
-				this.CreatedObject[obj.name.get()].updateMatrix();
-				this.CreatedObject[obj.name.get()].updateMatrixWorld();
+				this.CreatedObject[obj.name.get()].mesh.material = colorReference;
+				this.CreatedObject[obj.name.get()].mesh.updateMatrix();
+				this.CreatedObject[obj.name.get()].mesh.updateMatrixWorld();
 				this._viewer.impl.invalidate(true);
 			}
 		}
@@ -168,8 +167,8 @@ export default class THREEObjectsManager {
 			if (i === name) {
 				this.DeleteObject(obj.name.get());
 				this.NewObject(obj);
-				this.CreatedObject[obj.name.get()].updateMatrix();
-				this.CreatedObject[obj.name.get()].updateMatrixWorld();
+				this.CreatedObject[obj.name.get()].mesh.updateMatrix();
+				this.CreatedObject[obj.name.get()].mesh.updateMatrixWorld();
 				this._viewer.impl.invalidate(true);
 			}
 		}
@@ -179,44 +178,71 @@ export default class THREEObjectsManager {
 		let name = obj.name.get();
 		for (var i in this.CreatedObject) {
 			if (i === name) {
-				console.log(this.CreatedObject[obj.name.get()]);
 				this.DeleteObject(obj.name.get());
 				this.NewObject(obj);
 
 
-				this.CreatedObject[obj.name.get()].updateMatrix();
-				this.CreatedObject[obj.name.get()].updateMatrixWorld();
+				this.CreatedObject[obj.name.get()].mesh.updateMatrix();
+				this.CreatedObject[obj.name.get()].mesh.updateMatrixWorld();
 				this._viewer.impl.invalidate(true);
 			}
 		}
 	}
 	ZoomObject(obj) {
 		if (this.oldzoom) {
-			console.log(this.oldzoom.obj,this.CreatedObject[this.oldzoom.obj]);
-			this.CreatedObject[this.oldzoom.obj].material = this.colorRef[this.oldzoom.color];
+			this.CreatedObject[this.oldzoom.obj].mesh.material = this.colorRef[this.oldzoom.color];
 		}
 
 		let name = obj.name.get();
 		for (var i in this.CreatedObject) {
 			if (i === name) {
-				console.log(this.CreatedObject[obj.name.get()]);
 
 				this.oldzoom = {};
 				this.oldzoom.obj = obj.name.get();
 				this.oldzoom.color = obj.color.get();
 
-				this.CreatedObject[obj.name.get()].material = this.colorRef['yellow'];
-				this.CreatedObject[obj.name.get()].updateMatrix();
-				this.CreatedObject[obj.name.get()].updateMatrixWorld();
+				this.CreatedObject[obj.name.get()].mesh.material = this.colorRef['yellow'];
+				this.CreatedObject[obj.name.get()].mesh.updateMatrix();
+				this.CreatedObject[obj.name.get()].mesh.updateMatrixWorld();
 				this._viewer.impl.invalidate(true);
 				let self = this;
 				setTimeout(function() {
-					self.CreatedObject[obj.name.get()].material = self.colorRef[obj.color.get()];
-					self.CreatedObject[obj.name.get()].updateMatrix();
-					self.CreatedObject[obj.name.get()].updateMatrixWorld();
+					self.CreatedObject[obj.name.get()].mesh.material = self.colorRef[obj.color.get()];
+					self.CreatedObject[obj.name.get()].mesh.updateMatrix();
+					self.CreatedObject[obj.name.get()].mesh.updateMatrixWorld();
 					self._viewer.impl.invalidate(true);
 				}, 8000);
 			}
+		}
+	}
+	getAllMesh() {
+		let arr = [];
+		for (var i in this.CreatedObject) {
+				arr.push(this.CreatedObject[i].mesh);
+		}
+		return arr;
+	}
+	getNode(nodeUuid) {
+		for (var i in this.CreatedObject) {
+			if (this.CreatedObject[i].mesh.uuid == nodeUuid) {
+				console.log(this.CreatedObject[i].mesh.uuid, " found ", this.CreatedObject[i].id);
+				this.CreatedObject[i].mesh.depthTest = false;
+
+				let self = this;
+				setTimeout(function() {
+					self.CreatedObject[i].mesh.depthTest = true;
+				}, 3000)
+			}
+		}
+	}
+	hideObject() {
+		for (var i in this.CreatedObject) {
+			this.CreatedObject[i].mesh.visible = false;
+		}
+	}
+	showObject() {
+		for (var i in this.CreatedObject) {
+			this.CreatedObject[i].mesh.visible = true;
 		}
 	}
 }

@@ -9,15 +9,26 @@ class SpinalDynamicObjectForgeExtention {
 	}
 	load(){ 
 		init.call(this);
+		this.viewer.addEventListener(
+      		Autodesk.Viewing.ISOLATE_EVENT, (event) => {
+      			if (event.nodeIdArray.length != 0) {
+      				this.THREE.hideObject();
+      				console.log("begin isolate");
+      			} else {
+      				 this.THREE.showObject();
+      				console.log("end isolate");
+      			}
+     	})
 		return true;
 	}
 
-    /**
-    * method called when the viewer unload of the extention
-    * (managed by the autodesk viewer)
-    */
     unload() {
-		 this.context.unbind(contextBinded)
+    	this.viewer.removeEventListener(
+      		Autodesk.Viewing.ISOLATE_EVENT, () => {
+      		console.log('removeevent isolate');
+     	})
+
+		this.context.unbind(contextBinded)
     }
     cb() {
     	handleTHREEObject.call(this);
@@ -72,7 +83,6 @@ async function init() {
 		let _ObjectGroup = await SpinalGraphService.getChildren(_ObjectContext.id.get(), []);
 		this.context = SpinalGraphService.getRealNode(_ObjectGroup[0].id.get());
 		this.contextBinded = this.context.bind(() => this.cb.call(this) );
-		//self.unbind = SpinalGraphService.bindNode(self.context.id.get(), self, self.cb)
 		fillMySet.call(this);
 	}
 }
