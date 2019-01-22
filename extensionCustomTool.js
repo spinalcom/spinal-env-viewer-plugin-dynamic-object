@@ -95,21 +95,36 @@ class MeshSelectionExtension extends window.Autodesk.Viewing.Extension {
     const selections = intersectResults.filter( (res) =>
       (!hitTest || (hitTest.distance > res.distance)) )
 
-    if (selections.length) {
-      console.log('Custom meshes selected:')
-      console.log(selections);
-      this.THREE.getNode(selections[0].object.uuid);
-
+    if (selections.length && event.shiftKey ) {
+      this.THREE.SelectObject(this.THREE.getNode(selections[0].object.uuid));
+      //event.stopPropagation();
       return true
     }
+    else if (selections.length) {
+      this.THREE.ResetSelection();
+      this.viewer.clearSelection();
+      this.THREE.SelectObject(this.THREE.getNode(selections[0].object.uuid));
 
+       /*   Event for circular menu  */
+      let HandleEvent = new Event('DynamicObjectClick');
+      HandleEvent.nodeUuid = selections[0].object.uuid;
+      HandleEvent.x = event.clientX;
+      HandleEvent.y = event.clientY;
+      HandleEvent.is = "dynamic";
+      HandleEvent.dbId = [];
+      HandleEvent.returnObj = this.THREE.getNode(selections[0].object.uuid);
+      this.viewer.clientContainer.dispatchEvent(HandleEvent);
+      return true
+    }
+    if (this.THREE.DynamicObjectSelected && !event.shiftKey) {
+      this.THREE.ResetSelection();
+    }
     return false
   }
 
   getAllDbIds() {
     const {instanceTree} = this.viewer.model.getData()
     const {dbIdToIndex} = instanceTree.nodeAccess
-
     return Object.keys(dbIdToIndex).map((dbId) => {
       return parseInt(dbId)
     })

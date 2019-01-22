@@ -1,9 +1,12 @@
+import { SpinalGraphService } from 'spinal-env-viewer-graph-service';
 let self;
 
 export default class THREEObjectsManager {
 	constructor() {
 		if (!self) {
-			this.CreatedObject = {}
+			this.CreatedObject = {};
+			this.selectedObject = {};
+			this.selectedObjectColor = {};
 
 			this._viewer = window.spinal.ForgeViewer.viewer;
 
@@ -17,7 +20,7 @@ export default class THREEObjectsManager {
 				true);
 
 			this.material_blue = new THREE.MeshPhongMaterial(
-				{ color: 0x1D017C });
+				{ color: 0x95b7ed });
 			//add material green to collection
 
 			this._viewer.impl.matman().addMaterial(
@@ -128,6 +131,7 @@ export default class THREEObjectsManager {
 			if (i === name) {
 				this._viewer.impl.scene.remove(this.CreatedObject[i].mesh);
 				this._viewer.impl.invalidate(true);
+				delete this.CreatedObject[i];
 			}
 		}
 	}
@@ -181,7 +185,6 @@ export default class THREEObjectsManager {
 				this.DeleteObject(obj.name.get());
 				this.NewObject(obj);
 
-
 				this.CreatedObject[obj.name.get()].mesh.updateMatrix();
 				this.CreatedObject[obj.name.get()].mesh.updateMatrixWorld();
 				this._viewer.impl.invalidate(true);
@@ -215,6 +218,31 @@ export default class THREEObjectsManager {
 			}
 		}
 	}
+	SelectObject(obj) {
+		if (Object.keys(this.selectedObject).indexOf(obj.node.info.name.get()) == -1) {
+			this.selectedObject[obj.node.info.name.get()] = {};
+			this.selectedObject[obj.node.info.name.get()][`model`] = obj.model;
+			this.selectedObject[obj.node.info.name.get()][`material`] = obj.model.material;
+			this.CreatedObject[obj.node.info.name.get()].mesh.material = this.colorRef['blue'];
+			this.CreatedObject[obj.node.info.name.get()].mesh.updateMatrix();
+			this.CreatedObject[obj.node.info.name.get()].mesh.updateMatrixWorld();
+			this._viewer.impl.invalidate(true);
+		} else {
+			this.CreatedObject[obj.node.info.name.get()].mesh.material = this.selectedObject[obj.node.info.name.get()][`material`];
+			this.CreatedObject[obj.node.info.name.get()].mesh.updateMatrix();
+			this.CreatedObject[obj.node.info.name.get()].mesh.updateMatrixWorld();
+			this._viewer.impl.invalidate(true);
+		}
+	}
+	ResetSelection() {
+		for (var i in this.selectedObject) {
+			this.selectedObject[i][`model`].material = this.selectedObject[i][`material`];
+			this.selectedObject[i][`model`].updateMatrix();
+			this.selectedObject[i][`model`].updateMatrixWorld();
+			delete this.selectedObject[i];
+		}
+		this._viewer.impl.invalidate(true);
+	}
 	getAllMesh() {
 		let arr = [];
 		for (var i in this.CreatedObject) {
@@ -225,13 +253,9 @@ export default class THREEObjectsManager {
 	getNode(nodeUuid) {
 		for (var i in this.CreatedObject) {
 			if (this.CreatedObject[i].mesh.uuid == nodeUuid) {
-				console.log(this.CreatedObject[i].mesh.uuid, " found ", this.CreatedObject[i].id);
+				//console.log(this.CreatedObject[i].mesh.uuid, " found ", this.CreatedObject[i].id);
 				this.CreatedObject[i].mesh.depthTest = false;
-
-				let self = this;
-				setTimeout(function() {
-					self.CreatedObject[i].mesh.depthTest = true;
-				}, 3000)
+				return { model: this.CreatedObject[i].mesh, node: SpinalGraphService.getRealNode(this.CreatedObject[i].id) };
 			}
 		}
 	}
@@ -244,5 +268,8 @@ export default class THREEObjectsManager {
 		for (var i in this.CreatedObject) {
 			this.CreatedObject[i].mesh.visible = true;
 		}
+	}
+	DynamicObjectSelected() {
+		return (this.selectedObject.length < 1);
 	}
 }
