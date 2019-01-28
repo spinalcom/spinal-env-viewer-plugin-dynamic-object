@@ -1,5 +1,4 @@
 /////////////////////////////////////////////////////////////////////
-// MeshSelectionExtension, written by Philippe Leefsma - Dec 2017
 //
 // Illustrates how to perform double ray casting to detect selection
 // of custom meshes added to the scene and handle occlusion with
