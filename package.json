@@ -10,9 +10,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "babel-preset-env": "^1.7.0",
+    "spinal-env-viewer-context-menu-service": "https://github.com/spinalcom/spinal-env-viewer-context-menu-service.git",
+    "spinal-env-viewer-graph-service": "https://github.com/spinalcom/Spinal-Graph-Service.git",
     "spinal-env-viewer-panel-manager-service": "https://github.com/spinalcom/spinal-env-viewer-panel-manager-service.git",
-    "vue-slider-component": "^2.8.3",
-    "vue-color": "^2.7.0"
+    "spinal-env-viewer-panel-manager-service_spinalforgeextention": "https://github.com/spinalcom/spinal-env-viewer-panel-manager-service_spinalforgeextention.git",
+    "vue-color": "^2.7.0",
+    "vue-slider-component": "^2.8.3"
   },
   "browserify": {
     "transform": [

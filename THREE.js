@@ -201,16 +201,15 @@ export default class THREEObjectsManager {
 			if (i === name) {
 
 				this.oldzoom = {};
-				this.oldzoom.obj = obj.name.get();
-				this.oldzoom.color = obj.color.get();
-
+				this.oldzoom.color = this.CreatedObject[obj.name.get()].mesh.material
 				this.CreatedObject[obj.name.get()].mesh.material = this.colorRef['yellow'];
 				this.CreatedObject[obj.name.get()].mesh.updateMatrix();
 				this.CreatedObject[obj.name.get()].mesh.updateMatrixWorld();
 				this._viewer.impl.invalidate(true);
 				let self = this;
 				setTimeout(function() {
-					self.CreatedObject[obj.name.get()].mesh.material = self.colorRef[obj.color.get()];
+					self.CreatedObject[obj.name.get()].mesh.material = self.oldzoom.color;
+					delete self.oldzoom;
 					self.CreatedObject[obj.name.get()].mesh.updateMatrix();
 					self.CreatedObject[obj.name.get()].mesh.updateMatrixWorld();
 					self._viewer.impl.invalidate(true);
