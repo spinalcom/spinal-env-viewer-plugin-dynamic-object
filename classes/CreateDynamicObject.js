@@ -48,7 +48,7 @@ const extentionCreateObjectPanel = SpinalForgeExtention.createExtention({
   style: {
     left: "405px",
     height: "159px",
-    'min-height': '16vh'
+    'min-height': '21vh'
   },
   onload: () => {},
   onUnLoad: () => {}

@@ -85,7 +85,7 @@ export default class THREEObjectsManager {
 		sphere_maxpt.updateMatrix();
 		let test = this._viewer.impl.scene.add(sphere_maxpt);
 
-		this._viewer.fitToView([], sphere_maxpt);
+		//this._viewer.fitToView([], sphere_maxpt);
 
 		//update the viewer
 		//this._viewer.impl.invalidate(true);
@@ -114,7 +114,7 @@ export default class THREEObjectsManager {
 		sphere_maxpt.updateMatrix();
 		let test = this._viewer.impl.scene.add(sphere_maxpt);
 
-		this._viewer.fitToView([], sphere_maxpt);
+		//this._viewer.fitToView([], sphere_maxpt);
 
 		//update the viewer
 		this.CreatedObject[obj.name.get()] = { mesh: obj["threeObj"], id: obj.id.get() };

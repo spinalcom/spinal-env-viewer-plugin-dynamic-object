@@ -59,7 +59,7 @@ with this file. If not, see
                 style="margin-left: 210px;" v-on:click="getNewPosition">Change</md-button>
 
             <p class="titleInput">Change Color :</p>
-              <chrome-picker :value="colors" @input="setColorCode"></chrome-picker>
+              <chrome-picker class="titleInputColor" :value="colors" @input="setColorCode"></chrome-picker>
 
   </div>
 
@@ -116,7 +116,7 @@ with this file. If not, see
                 style="margin-left: 210px;" v-on:click="getNewPosition">Change</md-button>
 
             <p class="titleInput">Change Color :</p>
-              <chrome-picker :value="colors" @input="setColorCode"></chrome-picker>
+              <chrome-picker class="titleInputColor" :value="colors" @input="setColorCode"></chrome-picker>
   </div>
 </template>
 
@@ -275,14 +275,19 @@ export default {
       if (this.formSelected === "square") {
         realNode.info.rem_attr("radius");
         realNode.info.add_attr({ height: 1.5, width: 1.5, depth: 1.5 });
+        this.isSquare = true;
+        this.isSphere = false;
       } else if (this.formSelected === "sphere") {
         realNode.info.rem_attr("height");
         realNode.info.rem_attr("width");
         realNode.info.rem_attr("depth");
         realNode.info.add_attr({ radius: 1 });
+        this.isSphere = true;
+        this.isSquare = false;
       }
       this.THREE.CustomObjectForm(realNode);
       this.currentNode = realNode.info;
+      console.log(realNode);
 
       if (this.currentNode.form.get() === "sphere") {
         this.isSphere = true;
@@ -321,39 +326,29 @@ export default {
     changeValue() {
       if (this.currentNode.form.get() === "sphere" ) {
         if (this.radius !== this.currentNode.radius.get()) {
-          console.log("radius changed");
           this.changeRadius();
         }
       } else if (this.currentNode.form.get() === "square") {
         if (this.width !== this.currentNode.width.get()) {
-          console.log("width changed");
           this.changeWidth();
         } if (this.height !== this.currentNode.height.get()) {
-          console.log("height changed");
           this.changeHeight();
         } if (this.depth !== this.currentNode.depth.get()) {
-          console.log("depth changed");
           this.changeDepth();
         }
       }
 
       if (this.x != this.currentNode.x.get()) {
-        console.log("x changed");
         this.changeX();
       } if (this.y !== this.currentNode.y.get()) {
-        console.log("y changed");
         this.changeY();
       } if (this.z !== this.currentNode.z.get()) {
-        console.log("z changed");
         this.changeZ();
       } if (this.formSelected !== this.currentNode.form.get()) {
-        console.log("form changed");
         this.changeForm();
       } if (this.color !== this.currentNode.color.get()) {
-        console.log("color changed");
         this.changeColor();
       } if (this.name !== this.currentNode.name.get()) {
-        console.log("name changed");
         this.changeName();
       }
     }
@@ -388,12 +383,7 @@ export default {
   margin: auto;
   margin-left: 40px;
 }
-.titleInput {
-  margin-top: 3px;
-  margin: auto;
-  margin-left: 40px;
-  height: 30px;
-}
+
 .selectedInput {
   margin-top:-30px;
   width:100px;
@@ -404,5 +394,11 @@ export default {
   position: absolute;
   margin-left: 310px;
   margin-top:-20px;
+}
+
+.titleInputColor {
+  margin: auto;
+  margin-left: 80px;
+  height: 30px;
 }
 </style>

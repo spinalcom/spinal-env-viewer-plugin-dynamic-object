@@ -47,7 +47,7 @@ const extentionCustomObjectPanel = SpinalForgeExtention.createExtention({
   },
   style: {
     left: "405px",
-     height: "259px",
+     'min-height': '65vh',
      width: "16px"
   },
   onload: () => {},

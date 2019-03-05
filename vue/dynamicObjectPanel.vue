@@ -23,8 +23,8 @@ with this file. If not, see
     <p class="rename-element"> Name for the new Object :</p>
     <div class="rename-element">
       <input v-model="input">
-    <p class="titleInput">Change Form :</p>
-    <select class="selectedInput" style="margin-left: 150px;" v-model="formSelected">
+    <p class="titleInput">Form :</p>
+    <select class="selectedInput" style="margin-left: -9px; margin-top: -18px;" v-model="formSelected">
       <option v-for="option in form" v-bind:value="option">
        {{ option }}
       </option>
@@ -141,7 +141,8 @@ export default {
 .titleInput {
   margin-top: 3px;
   margin: auto;
-  margin-left: 40px;
+  margin-left: -115px;
+  padding-top: 10px;
   height: 30px;
 }
 </style>
