@@ -15,14 +15,14 @@ const {
 } = require("spinal-env-viewer-panel-manager-service_spinalforgeextention");
 
 //spinalContextMenuService.registerApp("myHookName", new SpinalDynamicObjectForgeExtention());
-spinalContextMenuService.registerApp(HeaderBarName, new CreateDynamicContextBtn());
-spinalContextMenuService.registerApp(sidebarName, new CreateGroupDynamicBtm());
-spinalContextMenuService.registerApp(sidebarName, new CreateDynamicObjectBtn());
-spinalContextMenuService.registerApp(sidebarName, new CustomDynamicObjectBtn());
+spinalContextMenuService.registerApp(HeaderBarName, new CreateDynamicContextBtn(), [3]);
+spinalContextMenuService.registerApp(sidebarName, new CreateGroupDynamicBtm(), [3]);
+spinalContextMenuService.registerApp(sidebarName, new CreateDynamicObjectBtn(), [3]);
+spinalContextMenuService.registerApp(sidebarName, new CustomDynamicObjectBtn(), [3]);
 SpinalForgeExtention.registerExtention("CreateGroupPanel", extentionCreateGroupPanel);
 SpinalForgeExtention.registerExtention("CreateObjectPanel", extentionCreateObjectPanel);
 SpinalForgeExtention.registerExtention("CustomObjectPanel", extentionCustomObjectPanel);
 
 
 
-spinalContextMenuService.registerApp(sidebarName, new ZoomBtn());
+spinalContextMenuService.registerApp(sidebarName, new ZoomBtn(), [3]);
