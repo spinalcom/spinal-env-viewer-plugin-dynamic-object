@@ -81,7 +81,7 @@ async function init() {
 	}
 	if (_ObjectContext !== undefined) {
 		let _ObjectGroup = await SpinalGraphService.getChildren(_ObjectContext.id.get(), []);
-		if (_ObjectGroup !== undefined) {
+		if (_ObjectGroup[0] !== undefined) {
 			this.context = SpinalGraphService.getRealNode(_ObjectGroup[0].id.get());
 			this.contextBinded = this.context.bind(() => this.cb.call(this) );
 			fillMySet.call(this);
